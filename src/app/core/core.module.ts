@@ -10,6 +10,7 @@ import { NavbarModule } from '../shared/modules/navbar/navbar.module';
 import { UserService } from '../shared/services/user.service';
 import { ConfirmUserModule } from '../pages/confirm-user/confirm-user.module';
 import { ArticlesModule } from '../pages/articles/articles.module';
+import { SignalrService } from '../shared/services/signalr.service';
 
 @NgModule({
   declarations: [],
@@ -36,6 +37,7 @@ import { ArticlesModule } from '../pages/articles/articles.module';
   ],
   providers: [
     UserService,
+    SignalrService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
