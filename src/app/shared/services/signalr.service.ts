@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { lastValueFrom, take } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
+import { INotificationMessage } from '../types/notificationMessage.interface';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,18 +19,23 @@ export class SignalrService {
         accessTokenFactory: () => lastValueFrom(token),
       })
       .build();
-      
+
     this.hubConnection
       .start()
-      .then(() => console.log('Connection started'))
       .catch((err) => console.log('Error while starting connection: ' + err));
   };
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private auth: AuthService,
+    private notificationService: NotificationService
+  ) {}
 
   public addNotificationListener = () => {
-    this.hubConnection.on('messageReceived', (data) => {
-      console.log(data);
-    });
+    this.hubConnection.on(
+      'messageReceived',
+      (message: INotificationMessage) => {
+        this.notificationService.showNotification(message);
+      }
+    );
   };
 }
