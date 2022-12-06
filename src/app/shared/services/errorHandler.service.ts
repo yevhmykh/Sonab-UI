@@ -1,14 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
+
+import { ErrorService } from './error.service';
 import { NotificationService } from './notification.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
-  constructor(private notificationService: NotificationService) {}
+  constructor(
+    private notificationService: NotificationService,
+    private errorService: ErrorService
+  ) {}
 
   public handleError(error: any): void {
     if (!navigator.onLine) {
-      this.notificationService.showError('No Internet Connection');
+      this.notificationService.showTranslatedError('Error.Connection');
       return;
     }
     if (error instanceof HttpErrorResponse) {
@@ -22,12 +27,8 @@ export class GlobalErrorHandler implements ErrorHandler {
   }
 
   private handleHttpError(error: HttpErrorResponse) {
-    if (error.status == 0) {
-      this.notificationService.showError('Server is down');
-    } else {
-      this.notificationService.showError(
-        error.message ? error.message : `Status code is: ${error.status}`
-      );
-    }
+    this.notificationService.showTranslatedError(
+      this.errorService.getTranslatedMessages(error).join(', ')
+    );
   }
 }

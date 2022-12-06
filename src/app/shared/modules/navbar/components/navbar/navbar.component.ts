@@ -7,6 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,12 +17,15 @@ import { Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class NavbarComponent implements OnInit {
+  public languages: string[] = this.translate.getLangs();
+  public currentLanguage: string;
   public isAuthenticated$: Observable<boolean> = this.auth.isAuthenticated$;
 
   constructor(
     private cdRef: ChangeDetectorRef,
     private auth: AuthService,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    private translate: TranslateService
   ) {}
 
   public handleLogin(): void {
@@ -38,5 +42,11 @@ export class NavbarComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
-  public ngOnInit(): void {}
+  public useLanguage(): void {
+    this.translate.use(this.currentLanguage);
+  }
+
+  public ngOnInit(): void {
+    this.currentLanguage = this.translate.currentLang;
+  }
 }

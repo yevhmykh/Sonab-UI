@@ -17,23 +17,31 @@
                 <li class="nav-item">
                     <a class="nav-link active"
                        aria-current="page"
-                       routerLink="/">Home</a>
+                       routerLink="/">{{ 'Nav.Home' | translate }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="#">Articles</a>
+                       href="#">{{ 'Nav.Articles' | translate }}</a>
                 </li>
             </ul>
             <div class="d-flex">
+                <select name="lang"
+                        id="lang"
+                        [(ngModel)]="currentLanguage"
+                        (change)="useLanguage()">
+                    <option *ngFor="let lang of languages"
+                            (value)="lang"
+                            [selected]="currentLanguage === lang">{{ lang }}</option>
+                </select>
                 <ng-container *ngIf="isAuthenticated$ | async; else unAuthenticated">
                     <button class="btn btn-outline-light"
                             type="button"
-                            (click)="handleLogout()">Logout</button>
+                            (click)="handleLogout()">{{ 'User.Logout' | translate }}</button>
                 </ng-container>
                 <ng-template #unAuthenticated>
                     <button class="btn btn-outline-light"
                             type="button"
-                            (click)="handleLogin()">Login</button>
+                            (click)="handleLogin()">{{ 'User.Login' | translate }}</button>
                 </ng-template>
             </div>
         </div>

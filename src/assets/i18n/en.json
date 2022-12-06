@@ -1,0 +1,21 @@
+{
+    "User": {
+        "Login": "Login",
+        "Logout": "Logout",
+        "Error": {
+            "Info": "Your information is not loaded. Please, re-login!"
+        }
+    },
+    "Nav": {
+        "Home": "Home",
+        "Articles": "Articles"
+    },
+    "Loading": "Loading...",
+    "Error": {
+        "Base": "An error occured: {{message}}",
+        "Connection": "No Internet Connection",
+        "Down": "Server is down",
+        "Server": "Unexpected server error. Please contact dev team",
+        "Status": "Status code is: {{code}}"
+    }
+}
