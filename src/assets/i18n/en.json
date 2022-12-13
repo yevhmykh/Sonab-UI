@@ -7,10 +7,23 @@
         }
     },
     "Nav": {
-        "Home": "Home",
-        "Articles": "Articles"
+        "Home": "Articles",
+        "User": "My articles",
+        "New": "New article"
+    },
+    "Post": {
+        "Title": "Title",
+        "TitleLength": "The title must contain at least 2 characters and no more than 100",
+        "Content": "Content",
+        "ContentLength": "The content of the article should be at least 200 characters.",
+        "Create": "Create article",
+        "Delete": "Delete article",
+        "Confirm": "Are you sure you want to delete this article?"
     },
     "Loading": "Loading...",
+    "Cancel": "Cancel",
+    "Edit": "Edit",
+    "Save": "Save",
     "Error": {
         "Base": "An error occured: {{message}}",
         "Connection": "No Internet Connection",

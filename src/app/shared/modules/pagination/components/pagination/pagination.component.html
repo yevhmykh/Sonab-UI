@@ -1,0 +1,28 @@
+<ul class="pagination justify-content-center">
+    <li class="page-item">
+        <a class="page-link"
+           [routerLink]="[urlProps]"
+           [queryParams]="{page: currentPageProps - 1, limit: limitProps}"
+           aria-label="Previous"
+           [class.disabled]="currentPageProps === 1">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    <li *ngFor="let page of pages"
+        class="page-item"
+        [class.active]="currentPageProps == page"
+        [attr.aria-current]="page">
+        <a class="page-link"
+           [routerLink]="[urlProps]"
+           [queryParams]="{page, limit: limitProps}">{{ page }}</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link"
+           [routerLink]="[urlProps]"
+           [queryParams]="{page: currentPageProps + 1, limit: limitProps}"
+           aria-label="Next"
+           [class.disabled]="currentPageProps === pagesCount">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+</ul>

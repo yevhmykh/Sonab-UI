@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 
-import { ErrorService } from './error.service';
-import { NotificationService } from './notification.service';
+import { ErrorService } from '../../shared/services/error.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -21,6 +21,7 @@ export class GlobalErrorHandler implements ErrorHandler {
       return;
     }
 
+    console.log(error);
     this.notificationService.showError(
       error.message ? error.message : error.toString()
     );

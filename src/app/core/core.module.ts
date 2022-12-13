@@ -13,9 +13,12 @@ import { environment } from 'src/environments/environment';
 import { NavbarModule } from '../shared/modules/navbar/navbar.module';
 import { UserService } from '../shared/services/user.service';
 import { ConfirmUserModule } from '../pages/confirm-user/confirm-user.module';
-import { ArticlesModule } from '../pages/articles/articles.module';
 import { SignalrService } from '../shared/services/signalr.service';
-import { GlobalErrorHandler } from '../shared/services/errorHandler.service';
+import { GlobalErrorHandler } from './services/errorHandler.service';
+import { MainPostListModule } from '../pages/main-post-list/main-post-list.module';
+import { PostViewModule } from '../pages/post-view/post-view.module';
+import { PostCreateModule } from '../pages/post-create/post-create.module';
+import { UserPostListModule } from '../pages/user-post-list/user-post-list.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -33,7 +36,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       httpInterceptor: {
         allowedList: [
           {
-            uri: `${environment.apiUrl}Some/*`,
+            uri: `${environment.apiUrl}/posts/all/*`,
+            allowAnonymous: true,
+          },
+          {
+            uri: `${environment.apiUrl}/posts/get/*`,
             allowAnonymous: true,
           },
           `${environment.apiUrl}*`,
@@ -62,7 +69,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   }),
     NavbarModule,
     ConfirmUserModule,
-    ArticlesModule,
+    MainPostListModule,
+    UserPostListModule,
+    PostViewModule,
+    PostCreateModule
   ],
   providers: [
     UserService,

@@ -1,0 +1,22 @@
+@import 'variables';
+
+ul {
+    color: $main;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+a,
+span {
+    color: $main;
+
+    &:hover {
+        color: $main;
+    }
+}
+
+.pagination > .active > a {
+    background-color: $main;
+    border-color: $main;
+    color: white;
+}

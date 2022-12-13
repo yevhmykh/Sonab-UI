@@ -1,0 +1,57 @@
+@import 'variables';
+
+.container {
+    padding-top: 40px;
+}
+
+.form-label {
+    font-size: 28px;
+}
+
+.form-control {
+    font-size: 24px;
+}
+
+textarea.form-control {
+    display: block;
+    font-size: 20px;
+    height: 450px;
+}
+
+input.invalid, textarea.invalid {
+    border-color: $error;
+}
+
+div.invalid {
+    margin-top: 5px;
+    color: $error
+}
+
+.submit {
+    margin-top: 25px;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        padding-top: 30px;
+    }
+
+    .form-label {
+        font-size: 24px;
+    }
+
+    .form-control {
+        font-size: 20px;
+    }
+    
+    textarea.form-control {
+        font-size: 16px;
+        height: 250px;
+    }
+
+    .submit {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,97 @@
+<sonab-loading *ngIf="isLoading"></sonab-loading>
+<div *ngIf="postData"
+     class="container">
+    <div *ngIf="postData.isEditAllowed && !editData"
+         class="d-flex justify-content-end buttons">
+        <button type="button"
+                class="btn btn-primary me-3"
+                (click)="edit()">{{ 'Edit' | translate }}</button>
+        <button type="button"
+                class="btn btn-danger me-1"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal">{{ 'Post.Delete' | translate }}</button>
+    </div>
+    <ng-container *ngIf="editData; else isView">
+        <div class="mb-5">
+            <label for="title"
+                   class="form-label">{{ 'Post.Title' | translate }}</label>
+            <input type="text"
+                   class="form-control"
+                   [class.invalid]="!isTitleValid()"
+                   [(ngModel)]="editData.title"
+                   id="title"
+                   name="title"
+                   required>
+            <div *ngIf="!isTitleValid()"
+                 class="invalid">
+                {{ 'Post.TitleLength' | translate }}
+            </div>
+        </div>
+        <div class="mb-5">
+            <label for="content"
+                   class="form-label">{{ 'Post.Content' | translate }}</label>
+            <textarea type="password"
+                      class="form-control"
+                      [class.invalid]="!isContentValid()"
+                      [(ngModel)]="editData.content"
+                      id="content"
+                      name="content"></textarea>
+            <div *ngIf="!isContentValid()"
+                 class="invalid">
+                {{ 'Post.ContentLength' | translate }}
+            </div>
+        </div>
+        <div class="submit d-flex justify-content-end">
+            <button type="button"
+                    class="btn btn-light me-3"
+                    (click)="cancel()">{{ 'Cancel' | translate }}</button>
+            <button type="button"
+                    class="btn btn-success me-1"
+                    (click)="saveChanges()">{{ 'Save' | translate }}</button>
+        </div>
+    </ng-container>
+    <ng-template #isView
+                 class="view">
+        <div class="view">
+            <h1>{{ postData.title }}</h1>
+            <div class="author">
+                {{ postData.author }}
+            </div>
+            <div class="content">
+                {{ postData.content }}
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<!-- Modal -->
+<div class="modal fade"
+     id="deleteModal"
+     tabindex="-1"
+     aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5"
+                    id="deleteModalLabel">{{ 'Post.Delete' | translate }}</h1>
+                <button type="button"
+                        #closeButton
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ 'Post.Confirm' | translate }}
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal">{{ 'Cancel' | translate }}</button>
+                <button type="button"
+                        class="btn btn-danger"
+                        (click)="delete()">{{ 'Post.Delete' | translate }}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -15,13 +15,24 @@
              id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active"
-                       aria-current="page"
-                       routerLink="/">{{ 'Nav.Home' | translate }}</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link"
-                       href="#">{{ 'Nav.Articles' | translate }}</a>
+                       routerLinkActive="active"
+                       ariaCurrentWhenActive="page"
+                       routerLink="/post/all">{{ 'Nav.Home' | translate }}</a>
+                </li>
+                <li *ngIf="isAuthenticated$ | async"
+                    class="nav-item">
+                    <a class="nav-link"
+                       routerLinkActive="active"
+                       ariaCurrentWhenActive="page"
+                       routerLink="/post/user">{{ 'Nav.User' | translate }}</a>
+                </li>
+                <li *ngIf="isAuthenticated$ | async"
+                    class="nav-item">
+                    <a class="nav-link"
+                       routerLinkActive="active"
+                       ariaCurrentWhenActive="page"
+                       routerLink="/post/create">{{ 'Nav.New' | translate }}</a>
                 </li>
             </ul>
             <div class="d-flex">
