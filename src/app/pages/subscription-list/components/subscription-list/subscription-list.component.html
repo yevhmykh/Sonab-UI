@@ -1,0 +1,28 @@
+<sonab-loading *ngIf="isLoading$ | async"></sonab-loading>
+<div *ngIf="data"
+     class="container">
+    <ng-container *ngIf="data.length > 0; else nothing">
+        <h1>{{ 'Publishers.Subscriptions' | translate }}</h1>
+        <div class="container">
+            <div *ngFor="let subscription of data"
+                 class="row subscription">
+                <div class="col-8 col-md-10 name">{{ subscription.publisherName }}</div>
+                <div class="col-4 col-md-2 d-flex">
+                    <ng-container *ngIf="unsubscribed.includes(subscription.publisherId); else subscribed">
+                        <button (click)="undo(subscription.publisherId)"
+                                class="btn btn-secondary"
+                                type="button">{{ 'Cancel' | translate }}</button>
+                    </ng-container>
+                    <ng-template #subscribed>
+                        <button (click)="unsubscribe(subscription.publisherId)"
+                                class="btn btn-alternative"
+                                type="button">{{ 'Publishers.Unsubscribe' | translate }}</button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #nothing>
+        <sonab-no-content></sonab-no-content>
+    </ng-template>
+</div>

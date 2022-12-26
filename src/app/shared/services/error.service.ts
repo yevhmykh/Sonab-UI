@@ -8,15 +8,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class ErrorService {
   constructor(private translate: TranslateService) {}
 
-  public getTranslatedMessages(error: HttpErrorResponse): string[] {
-    if (error.status == 0) {
+  public getTranslatedMessages(errorResponse: HttpErrorResponse): string[] {
+    if (errorResponse.status === 0) {
       return [this.translate.instant('Error.Down')];
-    } else if (error.error.Errors) {
-      return this.convertErrors(error.error.Errors);
+    } else if (errorResponse.error.errors) {
+      return this.convertErrors(errorResponse.error.errors);
     } else {
       return [
         this.translate.instant('Error.Status', {
-          code: error.status,
+          code: errorResponse.status,
         }),
       ];
     }

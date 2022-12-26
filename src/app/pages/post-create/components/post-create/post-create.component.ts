@@ -8,6 +8,8 @@ import {
   TitleMaxLength,
   TitleMinLength,
 } from 'src/app/shared/constants/limits';
+import { Observable } from 'rxjs';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 
 @Component({
   selector: 'app-post-create',
@@ -16,7 +18,7 @@ import {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class PostCreateComponent implements OnInit {
-  public isLoading: boolean = false;
+  public isLoading$: Observable<boolean>;
   public form: FormGroup;
   public get title() {
     return this.form.get('title');
@@ -28,7 +30,8 @@ export class PostCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoaderService
   ) {}
 
   public ngOnInit(): void {
@@ -46,10 +49,11 @@ export class PostCreateComponent implements OnInit {
         [Validators.required, Validators.minLength(ContentMinLength)],
       ],
     });
+
+    this.isLoading$ = this.loadingService.isLoading$;
   }
 
   public onSubmit(): void {
-    this.isLoading = true;
     this.postService.createPost(this.form.value).subscribe((id: number) => {
       this.router.navigate(['/post', id]);
     });

@@ -1,42 +1,46 @@
-<sonab-loading *ngIf="isLoading"></sonab-loading>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 col-lg-10 offset-lg-1">
-            <form [formGroup]="form"
-                  (ngSubmit)="onSubmit()">
-                <div class="mb-5">
-                    <label for="title"
-                           class="form-label">{{ 'Post.Title' | translate }}</label>
-                    <input type="text"
-                           class="form-control"
-                           [class.invalid]="title?.invalid && (title?.dirty || title?.touched)"
-                           id="title"
-                           formControlName="title"
-                           required>
-                    <div *ngIf="title?.invalid && (title?.dirty || title?.touched)"
-                         class="invalid">
-                        {{ 'Post.TitleLength' | translate }}
+<ng-container *ngIf="isLoading$ | async; else isLoaded">
+    <sonab-loading *ngIf="isLoading$ | async"></sonab-loading>
+</ng-container>
+<ng-template #isLoaded>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-10 offset-lg-1">
+                <form [formGroup]="form"
+                      (ngSubmit)="onSubmit()">
+                    <div class="mb-5">
+                        <label for="title"
+                               class="form-label">{{ 'Post.Title' | translate }}</label>
+                        <input type="text"
+                               class="form-control"
+                               [class.invalid]="title?.invalid && (title?.dirty || title?.touched)"
+                               id="title"
+                               formControlName="title"
+                               required>
+                        <div *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+                             class="invalid">
+                            {{ 'Post.TitleLength' | translate }}
+                        </div>
                     </div>
-                </div>
-                <div class="mb-5">
-                    <label for="content"
-                           class="form-label">{{ 'Post.Content' | translate }}</label>
-                    <textarea type="password"
-                              class="form-control"
-                              [class.invalid]="content?.invalid && (content?.dirty || content?.touched)"
-                              id="content"
-                              formControlName="content"></textarea>
-                    <div *ngIf="content?.invalid && (content?.dirty || content?.touched)"
-                         class="invalid">
-                        {{ 'Post.ContentLength' | translate }}
+                    <div class="mb-5">
+                        <label for="content"
+                               class="form-label">{{ 'Post.Content' | translate }}</label>
+                        <textarea type="password"
+                                  class="form-control"
+                                  [class.invalid]="content?.invalid && (content?.dirty || content?.touched)"
+                                  id="content"
+                                  formControlName="content"></textarea>
+                        <div *ngIf="content?.invalid && (content?.dirty || content?.touched)"
+                             class="invalid">
+                            {{ 'Post.ContentLength' | translate }}
+                        </div>
                     </div>
-                </div>
-                <div class="submit d-flex justify-content-end">
-                    <button type="submit"
-                            [disabled]="!form.valid"
-                            class="btn btn-primary">{{ 'Post.Create' | translate }}</button>
-                </div>
-            </form>
+                    <div class="submit d-flex justify-content-end">
+                        <button type="submit"
+                                [disabled]="!form.valid"
+                                class="btn btn-primary">{{ 'Post.Create' | translate }}</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</ng-template>

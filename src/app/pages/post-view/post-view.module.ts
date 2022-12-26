@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PostViewComponent } from './components/post-view/post-view.component';
+import { PostViewSubscriptionComponent } from './components/post-view-subscription/post-view-subscription.component';
 import { LoadingModule } from 'src/app/shared/modules/loading/loading.module';
+import { PostViewEditComponent } from './components/post-view-edit/post-view-edit.component';
 
 @NgModule({
-  declarations: [PostViewComponent],
+  declarations: [PostViewComponent, PostViewSubscriptionComponent, PostViewEditComponent],
   imports: [
     CommonModule,
     RouterModule,

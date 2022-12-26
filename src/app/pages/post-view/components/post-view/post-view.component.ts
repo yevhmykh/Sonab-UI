@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
-import {
-  ContentMinLength,
-  TitleMaxLength,
-  TitleMinLength,
-} from 'src/app/shared/constants/limits';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 import { PostService } from 'src/app/shared/services/post.service';
 import { IPostData } from 'src/app/shared/types/postData.interface';
 import { IPostFullData } from 'src/app/shared/types/postFullData.interface';
@@ -21,14 +18,15 @@ export class PostViewComponent implements OnInit {
     nativeElement: { click: () => void };
   };
 
-  public isLoading: boolean = true;
+  public isLoading$: Observable<boolean> = this.loadingService.isLoading$;
   public editData: IPostData | null;
   public postData: IPostFullData;
 
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loadingService: LoaderService
   ) {}
 
   public ngOnInit(): void {
@@ -36,7 +34,6 @@ export class PostViewComponent implements OnInit {
       .getPostData(Number(this.route.snapshot.paramMap.get('id')))
       .subscribe((data: IPostFullData) => {
         this.postData = data;
-        this.isLoading = false;
       });
   }
 
@@ -47,26 +44,7 @@ export class PostViewComponent implements OnInit {
     };
   }
 
-  public cancel(): void {
-    this.editData = null;
-  }
-
-  public isTitleValid(): boolean {
-    return (
-      this.editData?.title.length! >= TitleMinLength &&
-      this.editData?.title.length! <= TitleMaxLength
-    );
-  }
-
-  public isContentValid(): boolean {
-    return this.editData?.content.length! >= ContentMinLength;
-  }
-
   public saveChanges(): void {
-    if (!(this.isTitleValid() && this.isContentValid())) {
-      return;
-    }
-
     this.postService
       .editPost(this.postData.id, this.editData as IPostData)
       .subscribe(() => {
@@ -74,6 +52,10 @@ export class PostViewComponent implements OnInit {
         this.postData.content = this.editData?.content!;
         this.editData = null;
       });
+  }
+
+  public cancel(): void {
+    this.editData = null;
   }
 
   public delete(): void {

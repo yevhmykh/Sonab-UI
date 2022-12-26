@@ -6,4 +6,24 @@
 /* Importing angular-notifier SCSS file. */
 @import '../node_modules/angular-notifier/styles';
 
-// @import 'assets/styles/variables';
+// App buttons
+@import 'assets/styles/variables';
+.btn-main {
+    background-color: $main;
+    color: white;
+
+    &:hover{
+        background-color: $main_dark;
+        color: white;
+    }
+}
+
+.btn-alternative {
+    background-color: $alternative;
+    color: black;
+
+    &:hover{
+        background-color: $alternative_light;
+        color: black;
+    }
+}

@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   public languages: string[] = this.translate.getLangs();
   public currentLanguage: string;
   public isAuthenticated$: Observable<boolean> = this.auth.isAuthenticated$;
+  public user$: Observable<User | null | undefined> = this.auth.user$;
 
   constructor(
     private cdRef: ChangeDetectorRef,

@@ -6,26 +6,51 @@ import { ConfirmUserComponent } from './pages/confirm-user/components/confirm-us
 import { MainPostListComponent } from './pages/main-post-list/components/main-post-list/main-post-list.component';
 import { PostCreateComponent } from './pages/post-create/components/post-create/post-create.component';
 import { PostViewComponent } from './pages/post-view/components/post-view/post-view.component';
+import { PublishersPostListComponent } from './pages/publishers-post-list/components/publishers-post-list/publishers-post-list.component';
+import { SubscriptionListComponent } from './pages/subscription-list/components/subscription-list/subscription-list.component';
 import { UserPostListComponent } from './pages/user-post-list/components/user-post-list/user-post-list.component';
 
 const routes: Routes = [
   {
-    path: 'post/all',
-    component: MainPostListComponent,
+    path: 'post',
+    children: [
+      {
+        path: 'all',
+        component: MainPostListComponent,
+      },
+      {
+        path: '',
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'user',
+            component: UserPostListComponent,
+          },
+          {
+            path: 'publishers',
+            component: PublishersPostListComponent,
+          },
+          {
+            path: 'create',
+            component: PostCreateComponent,
+          },
+        ],
+      },
+      {
+        path: ':id',
+        component: PostViewComponent,
+      },
+    ],
   },
   {
-    path: 'post/user',
+    path: 'user',
     canActivate: [AuthGuard],
-    component: UserPostListComponent,
-  },
-  {
-    path: 'post/create',
-    canActivate: [AuthGuard],
-    component: PostCreateComponent,
-  },
-  {
-    path: 'post/:id',
-    component: PostViewComponent,
+    children: [
+      {
+        path: 'subscriptions',
+        component: SubscriptionListComponent,
+      },
+    ],
   },
   {
     path: 'confirm-user',

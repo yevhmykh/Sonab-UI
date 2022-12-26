@@ -12,10 +12,6 @@ This is some kind of forum with posts and some other staff... I think... I hope.
 
 Auth0, SignalR notifications.
 
-## Problems :frowning_face:
-
-I tried implement http request loader via HttpInterceptor, but I failed... :anguished: Why? HttpInterceptor for some generates 2 events per request, where the second request doesn't finalize. As a result, the loader doesn't disappear. :rage: I don't know why and how to fix it. :cry:
-
 ## How to run it?
 
 Some Auth0 functionality requires sensitive data, but I will not attach this data to repository. So if you want to run it follow next steps:

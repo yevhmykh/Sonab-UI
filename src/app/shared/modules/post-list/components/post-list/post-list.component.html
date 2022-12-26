@@ -1,22 +1,30 @@
-<sonab-loading *ngIf="isLoading"></sonab-loading>
-<div *ngIf="count > 0 && !isLoading"
-     class="container">
-    <div *ngFor="let post of data; let i = index"
-         class="post_item">
-        <a [routerLink]="['/post', post.id]"
-           class="post_title">
-           {{ post.title }}
-         </a>
-         <div class="post_author">
-            {{ post.author }}
+<ng-container *ngIf="isLoading$ | async; else isLoaded">
+   <sonab-loading></sonab-loading>
+</ng-container>
+<ng-template #isLoaded>
+   <div class="container">
+      <ng-container *ngIf="count > 0; else nothing">
+         <div *ngFor="let post of data; let i = index"
+              class="post_item">
+            <a [routerLink]="['/post', post.id]"
+               class="post_title">
+               {{ post.title }}
+            </a>
+            <div class="post_author">
+               {{ post.author }}
+            </div>
+            <div class="post_content">
+               {{ post.content | slice:0:150 }}...
+            </div>
+            <hr *ngIf="i + 1 !== limit">
          </div>
-         <div class="post_content">
-            {{ post.content | slice:0:150 }}...
-         </div>
-        <hr *ngIf="i + 1 !== limit">
-    </div>
-    <sonab-pagination [total]="count"
-                      [limit]="limit"
-                      [currentPage]="currentPage"
-                      [url]="baseUrl"></sonab-pagination>
-</div>
+         <sonab-pagination [total]="count"
+                           [limit]="limit"
+                           [currentPage]="currentPage"
+                           [url]="baseUrl"></sonab-pagination>
+      </ng-container>
+      <ng-template #nothing>
+         <sonab-no-content></sonab-no-content>
+      </ng-template>
+   </div>
+</ng-template>

@@ -4,7 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { NotifierModule } from 'angular-notifier';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -19,6 +23,10 @@ import { MainPostListModule } from '../pages/main-post-list/main-post-list.modul
 import { PostViewModule } from '../pages/post-view/post-view.module';
 import { PostCreateModule } from '../pages/post-create/post-create.module';
 import { UserPostListModule } from '../pages/user-post-list/user-post-list.module';
+import { PublishersPostListModule } from '../pages/publishers-post-list/publishers-post-list.module';
+import { LoadingInterceptor } from './loading.interceptor';
+import { LoaderService } from '../shared/services/loader.service';
+import { SubscriptionListModule } from '../pages/subscription-list/subscription-list.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -62,21 +70,25 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-      }
-  }),
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     NavbarModule,
     ConfirmUserModule,
     MainPostListModule,
     UserPostListModule,
+    PublishersPostListModule,
     PostViewModule,
-    PostCreateModule
+    PostCreateModule,
+    SubscriptionListModule,
   ],
   providers: [
     UserService,
     SignalrService,
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,

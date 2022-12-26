@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 import { PostService } from '../../../../services/post.service';
 import { IPostShortInfo } from '../../../../types/postShortInfo.interface';
 
@@ -19,7 +20,7 @@ import { IPostShortInfo } from '../../../../types/postShortInfo.interface';
 export class PostListComponent implements OnInit, OnDestroy {
   @Input('urlPart') public urlPartProps: string;
 
-  public isLoading: boolean = true;
+  public isLoading$: Observable<boolean>;
   public data: IPostShortInfo[];
   public count: number;
   public queryParamsSubscription: Subscription;
@@ -30,7 +31,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private postService: PostService
+    private postService: PostService,
+    private loadingService: LoaderService
   ) {}
 
   public ngOnInit(): void {
@@ -45,6 +47,8 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.fetchData();
       }
     );
+
+    this.isLoading$ = this.loadingService.isLoading$;
   }
 
   public ngOnDestroy(): void {
@@ -52,12 +56,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   private fetchData(): void {
-    this.isLoading = true;
     this.postService
       .getPosts(this.urlPartProps, this.limit, this.currentPage)
       .subscribe((data: IPostShortInfo[]) => {
         this.data = data;
-        this.isLoading = false;
       });
   }
 }

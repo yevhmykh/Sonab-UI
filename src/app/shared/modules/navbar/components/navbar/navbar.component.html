@@ -32,6 +32,13 @@
                     <a class="nav-link"
                        routerLinkActive="active"
                        ariaCurrentWhenActive="page"
+                       routerLink="/post/publishers">{{ 'Nav.Publishers' | translate }}</a>
+                </li>
+                <li *ngIf="isAuthenticated$ | async"
+                    class="nav-item">
+                    <a class="nav-link"
+                       routerLinkActive="active"
+                       ariaCurrentWhenActive="page"
                        routerLink="/post/create">{{ 'Nav.New' | translate }}</a>
                 </li>
             </ul>
@@ -45,9 +52,31 @@
                             [selected]="currentLanguage === lang">{{ lang }}</option>
                 </select>
                 <ng-container *ngIf="isAuthenticated$ | async; else unAuthenticated">
-                    <button class="btn btn-outline-light"
-                            type="button"
-                            (click)="handleLogout()">{{ 'User.Logout' | translate }}</button>
+                    <li class="nav-item dropdown btn btn-outline-light">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <img [src]="(user$ | async)?.picture"
+                                 alt="profile">
+                            <div class="nickname">
+                                {{ (user$ | async)?.nickname }}
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                   routerLink="/user/subscriptions">
+                                   {{ 'Nav.Subscriptions' | translate }}</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item"
+                                   (click)="handleLogout()">{{ 'User.Logout' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ng-container>
                 <ng-template #unAuthenticated>
                     <button class="btn btn-outline-light"

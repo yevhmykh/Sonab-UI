@@ -1,0 +1,15 @@
+<div *ngIf="isAuthenticated$ | async">
+    <ng-container *ngIf="isSubscribedProps; else unsubscribed">
+        <div class="d-inline-block mx-3 message">
+            {{ 'Publishers.Subscribed' | translate }}
+        </div>
+        <button class="btn btn-alternative"
+                type="button"
+                (click)="unsubscribe()">{{ 'Publishers.Unsubscribe' | translate }}</button>
+    </ng-container>
+    <ng-template #unsubscribed>
+        <button class="btn btn-main ms-3"
+                type="button"
+                (click)="subscribe()">{{ 'Publishers.Subscribe' | translate }}</button>
+    </ng-template>
+</div>
