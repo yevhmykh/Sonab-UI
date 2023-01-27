@@ -5,16 +5,19 @@
    <div class="container">
       <ng-container *ngIf="count > 0; else nothing">
          <div *ngFor="let post of data; let i = index"
-              class="post_item">
+              class="item">
             <a [routerLink]="['/post', post.id]"
-               class="post_title">
+               class="title">
                {{ post.title }}
             </a>
-            <div class="post_author">
+            <div class="author">
                {{ post.author }}
             </div>
-            <div class="post_content">
+            <div class="content">
                {{ post.content | slice:0:150 }}...
+            </div>
+            <div class="tags">
+               <sonab-tag-list [tags]="post.tags"></sonab-tag-list>
             </div>
             <hr *ngIf="i + 1 !== limit">
          </div>

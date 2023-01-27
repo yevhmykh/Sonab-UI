@@ -1,0 +1,43 @@
+<div *ngFor="let tag of selectedTags"
+     class="tag-mrg tag-view">
+    <div class="d-inline-block">
+        {{ tag.name }}
+    </div>
+    <button type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="remove(tag)"></button>
+</div>
+<ng-select *ngIf="chooseMode == ChooseModeType.Search && loadedTags"
+           class="tag-mrg tag-select"
+           [items]="loadedTags"
+           bindLabel="name"
+           bindValue="id"
+           [(ngModel)]="choosedTagId"
+           (change)="select($event)"
+           (search)="load($event)"
+           (clear)="load({term: null})">
+</ng-select>
+<div *ngIf="chooseMode == ChooseModeType.Create"
+     class="tag-mrg tag-input">
+    <input type="text"
+           autoFocus
+           [(ngModel)]="tagName">
+    <button type="button"
+            (click)="addNewTag()"
+            [disabled]="!isNameValid()">+</button>
+</div>
+
+<button *ngIf="chooseMode != ChooseModeType.Search"
+        class="tag-mrg tag-btn"
+        (click)="load({term: null})"
+        type="button">
+    <img src="assets/svgs/search.svg"
+         alt="search">
+</button>
+<button *ngIf="chooseMode != ChooseModeType.Create"
+        class="tag-mrg tag-btn"
+        (click)="setCreateMode()"
+        type="button">
+    +
+</button>

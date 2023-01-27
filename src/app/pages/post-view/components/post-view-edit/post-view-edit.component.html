@@ -16,7 +16,7 @@
 <div class="mb-5">
     <label for="content"
            class="form-label">{{ 'Post.Content' | translate }}</label>
-    <textarea type="password"
+    <textarea type="text"
               class="form-control"
               [class.invalid]="!isContentValid()"
               [(ngModel)]="editDataProps.content"
@@ -26,6 +26,10 @@
          class="invalid">
         {{ 'Post.ContentLength' | translate }}
     </div>
+</div>
+<div class="mb-5">
+    <sonab-tag-edit [init]="editDataProps.tags"
+                    (setTags)="setTags($event)"></sonab-tag-edit>
 </div>
 <div class="submit d-flex justify-content-end">
     <button type="button"

@@ -1,0 +1,90 @@
+@import 'variables';
+@import 'mixins';
+
+@mixin tag-select {
+    background-color: $alternative;
+    color: black;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+* {
+    vertical-align: middle;
+}
+
+.tag {
+    &-view {
+        @include topic-tag;
+    }
+
+    &-input {
+        @include topic-tag;
+        min-width: 300px;
+        padding-bottom: 4px;
+
+        input {
+            display: inline-block;
+            background-color: #00000000;
+            min-width: 260px;
+            border: none;
+            box-shadow: none;
+
+            &:focus{
+                outline: none;
+            }
+        }
+
+        button {
+            background-color: #00000000;
+            border: none;
+            box-shadow: none;
+            outline: none
+
+        }
+    }
+
+    &-btn {
+        @include topic-tag;
+        border: none;
+        box-shadow: none;
+    }
+
+    &-mrg:not(:first-child) {
+        margin-left: 10px;
+    }
+}
+
+.ng-select.tag-select {
+    display: inline-block;
+}
+
+.ng-select.tag-select ::ng-deep .ng-select-container {
+    @include tag-select;
+    border: none;
+    min-width: 300px;
+
+    .ng-value-container .ng-input {
+        padding-left: 15px;
+    }
+}
+
+.ng-select.tag-select ::ng-deep .ng-dropdown-panel {
+    @include tag-select;
+}
+
+.ng-select.tag-select ::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    background-color: #00000000;
+    padding-left: 15px;
+
+    &-marked {
+        background-color: $alternative_light;
+        border-radius: 20px;
+    }
+}
+
+.btn-close {
+    width: auto;
+    height: auto;
+    margin-left: 3px;
+    vertical-align: middle;
+}

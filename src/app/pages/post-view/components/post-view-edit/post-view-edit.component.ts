@@ -12,6 +12,7 @@ import {
   TitleMinLength,
 } from 'src/app/shared/constants/limits';
 import { IPostData } from 'src/app/shared/types/postData.interface';
+import { ITopicTag } from 'src/app/shared/types/topicTag.interface';
 
 @Component({
   selector: 'sonab-post-view-edit',
@@ -36,6 +37,10 @@ export class PostViewEditComponent {
 
   public isContentValid(): boolean {
     return this.editDataProps?.content.length! >= ContentMinLength;
+  }
+
+  public setTags(tags: ITopicTag[]) {
+    this.editDataProps!.tags = tags;
   }
 
   public saveChanges(): void {

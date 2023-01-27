@@ -6,8 +6,13 @@
 /* Importing angular-notifier SCSS file. */
 @import '../node_modules/angular-notifier/styles';
 
+/* Importing ng-select SCSS file */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 // App buttons
 @import 'assets/styles/variables';
+@import 'assets/styles/mixins';
+
 .btn-main {
     background-color: $main;
     color: white;

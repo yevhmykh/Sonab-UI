@@ -8,6 +8,7 @@ import { PaginationModule } from '../pagination/pagination.module';
 import { LoadingModule } from '../loading/loading.module';
 import { PostService } from '../../services/post.service';
 import { NoContentModule } from '../no-content/no-content.module';
+import { TagsModule } from '../tags/tags.module';
 
 @NgModule({
   declarations: [PostListComponent],
@@ -18,6 +19,7 @@ import { NoContentModule } from '../no-content/no-content.module';
     LoadingModule,
     PaginationModule,
     NoContentModule,
+    TagsModule,
   ],
   providers: [PostService],
   exports: [PostListComponent],

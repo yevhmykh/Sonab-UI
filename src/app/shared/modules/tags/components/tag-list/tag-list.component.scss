@@ -1,0 +1,9 @@
+@import 'mixins';
+
+.topic-tag{
+    @include topic-tag;
+
+    &:not(:first-child) {
+        margin-left: 10px;
+    }
+}

@@ -1,3 +1,5 @@
+import { ITopicTag } from "./topicTag.interface";
+
 export interface IPostFullData {
   id: number;
   title: string;
@@ -6,4 +8,5 @@ export interface IPostFullData {
   authorId: number;
   isEditAllowed: boolean;
   isSubscribed: boolean;
+  tags: ITopicTag[];
 }

@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { PostCreateComponent } from './components/post-create/post-create.component';
 import { LoadingModule } from 'src/app/shared/modules/loading/loading.module';
+import { TagsModule } from 'src/app/shared/modules/tags/tags.module';
 
 @NgModule({
   declarations: [PostCreateComponent],
@@ -13,6 +14,7 @@ import { LoadingModule } from 'src/app/shared/modules/loading/loading.module';
     ReactiveFormsModule,
     TranslateModule.forChild(),
     LoadingModule,
+    TagsModule,
   ],
 })
 export class PostCreateModule {}

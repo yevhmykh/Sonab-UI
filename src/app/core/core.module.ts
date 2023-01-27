@@ -51,6 +51,10 @@ export function HttpLoaderFactory(http: HttpClient) {
             uri: `${environment.apiUrl}/posts/get/*`,
             allowAnonymous: true,
           },
+          {
+            uri: `${environment.apiUrl}/topictag/search`,
+            allowAnonymous: true,
+          },
           `${environment.apiUrl}*`,
         ],
       },

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PostService } from 'src/app/shared/services/post.service';
@@ -10,6 +10,8 @@ import {
 } from 'src/app/shared/constants/limits';
 import { Observable } from 'rxjs';
 import { LoaderService } from 'src/app/shared/services/loader.service';
+import { ITopicTag } from 'src/app/shared/types/topicTag.interface';
+import { IPostData } from 'src/app/shared/types/postData.interface';
 
 @Component({
   selector: 'app-post-create',
@@ -18,6 +20,8 @@ import { LoaderService } from 'src/app/shared/services/loader.service';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class PostCreateComponent implements OnInit {
+  private tags: ITopicTag[] | null;
+
   public isLoading$: Observable<boolean>;
   public form: FormGroup;
   public get title() {
@@ -53,8 +57,17 @@ export class PostCreateComponent implements OnInit {
     this.isLoading$ = this.loadingService.isLoading$;
   }
 
+  public setTags(tags: ITopicTag[]) {
+    this.tags = tags;
+  }
+
   public onSubmit(): void {
-    this.postService.createPost(this.form.value).subscribe((id: number) => {
+    let data: IPostData = {
+      title: this.form.value.title,
+      content: this.form.value.content,
+      tags: this.tags
+    }
+    this.postService.createPost(data).subscribe((id: number) => {
       this.router.navigate(['/post', id]);
     });
   }

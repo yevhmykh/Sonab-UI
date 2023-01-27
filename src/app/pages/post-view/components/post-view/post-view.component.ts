@@ -41,6 +41,7 @@ export class PostViewComponent implements OnInit {
     this.editData = {
       title: this.postData.title,
       content: this.postData.content,
+      tags: this.postData.tags
     };
   }
 

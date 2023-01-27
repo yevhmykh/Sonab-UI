@@ -24,7 +24,7 @@
                     <div class="mb-5">
                         <label for="content"
                                class="form-label">{{ 'Post.Content' | translate }}</label>
-                        <textarea type="password"
+                        <textarea type="text"
                                   class="form-control"
                                   [class.invalid]="content?.invalid && (content?.dirty || content?.touched)"
                                   id="content"
@@ -33,6 +33,9 @@
                              class="invalid">
                             {{ 'Post.ContentLength' | translate }}
                         </div>
+                    </div>
+                    <div class="mb-5">
+                        <sonab-tag-edit (setTags)="setTags($event)"></sonab-tag-edit>
                     </div>
                     <div class="submit d-flex justify-content-end">
                         <button type="submit"
