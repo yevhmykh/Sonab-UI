@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,23 +13,38 @@ import { IPostData } from '../types/postData.interface';
 export class PostService {
   constructor(private http: HttpClient) {}
 
-  public getCount(url: string): Observable<number> {
+  public getCount(
+    url: string,
+    topicTagId: number | null,
+    authorId: number | null
+  ): Observable<number> {
     const fullUrl = `${environment.apiUrl}/posts/${url}/count`;
-    return this.http.get<number>(fullUrl);
+    let params: HttpParams = new HttpParams();
+    if (topicTagId) {
+      params = params.set('topicTagId', topicTagId);
+    }
+    if (authorId) {
+      params = params.set('authorId', authorId);
+    }
+    return this.http.get<number>(fullUrl, { params });
   }
 
   public getPosts(
     url: string,
+    topicTagId: number | null,
+    authorId: number | null,
     limit: number,
     page: number
   ): Observable<IPostShortInfo[]> {
     const fullUrl = `${environment.apiUrl}/posts/${url}/list`;
-    return this.http.get<IPostShortInfo[]>(fullUrl, {
-      params: {
-        page,
-        limit,
-      },
-    });
+    let params = new HttpParams().set('limit', limit).set('page', page);
+    if (topicTagId) {
+      params = params.set('topicTagId', topicTagId);
+    }
+    if (authorId) {
+      params = params.set('authorId', authorId);
+    }
+    return this.http.get<IPostShortInfo[]>(fullUrl, { params });
   }
 
   public getPostData(id: number): Observable<IPostFullData> {

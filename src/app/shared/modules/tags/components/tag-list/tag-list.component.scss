@@ -1,9 +1,14 @@
 @import 'mixins';
 
-.topic-tag{
+.topic-tag {
     @include topic-tag;
+    margin-right: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    text-decoration: none;
+}
 
-    &:not(:first-child) {
-        margin-left: 10px;
-    }
+.selected {
+    background-color: $main;
+    color: white;
 }

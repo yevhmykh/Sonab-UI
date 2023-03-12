@@ -1,4 +1,7 @@
-<div *ngFor="let tag of tagsProps"
-     class="topic-tag">
+<a *ngFor="let tag of tagsProps"
+   class="topic-tag"
+   [class.selected]="selectedIdProps === tag.id"
+   [routerLink]="[urlProps]"
+   [queryParams]="getRouterParams(tag.id, tag.name)">
     {{ tag.name }}
-</div>
+</a>

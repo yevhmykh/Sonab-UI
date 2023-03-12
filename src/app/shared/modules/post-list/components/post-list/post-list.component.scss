@@ -32,6 +32,11 @@
     text-decoration: underline;
     margin-left: 15px;
     color: gray;
+
+    &:hover {
+        color: $alternative;
+        text-decoration: none;
+    }
 }
 
 .content {
@@ -41,4 +46,56 @@
 
 .tags {
     margin-top: 10px;
+}
+
+.top-tags {
+    // position: fixed;
+    // top: 10%;
+    // left: 70%;
+    // min-width: 20%;
+    padding: 10px;
+    border-style: solid;
+    border-color: gray;
+    border-width: 2px;
+    border-radius: 15px;
+}
+
+.selected-author {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 15px;
+    font-size: 24px;
+    color: $main;
+    border-style: solid;
+    border-top: none;
+    border-color: $main;
+    border-width: 2px;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: 0.4s all;
+
+    img {
+        width: 10%;
+        transition: 0.4s all;
+        filter: invert(44%) sepia(15%) saturate(2239%) hue-rotate(147deg) brightness(90%) contrast(91%);
+    }
+
+    &:hover {
+        border-color: gray;
+        color: gray;
+
+        img {
+            filter: invert(56%) sepia(0%) saturate(0%) hue-rotate(97deg) brightness(90%) contrast(91%);
+        }
+    }
+}
+
+.close {
+    mask: url(/assets/svgs/close.svg);
+    display: inline-block;
+    mask-size: cover;
+    color: $main;
 }

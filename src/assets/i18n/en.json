@@ -20,8 +20,7 @@
         "ContentLength": "The content of the article should be at least 200 characters.",
         "Create": "Create article",
         "Delete": "Delete article",
-        "Confirm": "Are you sure you want to delete this article?",
-        "NoPosts": "There is nothing here"
+        "Confirm": "Are you sure you want to delete this article?"
     },
     "Publishers": {
         "Subscriptions": "Your subscriptions:",
@@ -33,6 +32,7 @@
     "Cancel": "Cancel",
     "Edit": "Edit",
     "Save": "Save",
+    "Nothing": "There is nothing here",
     "Error": {
         "Base": "An error occured: {{message}}",
         "Connection": "No Internet Connection",

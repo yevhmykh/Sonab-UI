@@ -2,7 +2,7 @@
     <li class="page-item">
         <a class="page-link"
            [routerLink]="[urlProps]"
-           [queryParams]="{page: currentPageProps - 1, limit: limitProps}"
+           [queryParams]="getRouterParams(currentPageProps - 1)"
            aria-label="Previous"
            [class.disabled]="currentPageProps === 1">
             <span aria-hidden="true">&laquo;</span>
@@ -14,12 +14,12 @@
         [attr.aria-current]="page">
         <a class="page-link"
            [routerLink]="[urlProps]"
-           [queryParams]="{page, limit: limitProps}">{{ page }}</a>
+           [queryParams]="getRouterParams(page)">{{ page }}</a>
     </li>
     <li class="page-item">
         <a class="page-link"
            [routerLink]="[urlProps]"
-           [queryParams]="{page: currentPageProps + 1, limit: limitProps}"
+           [queryParams]="getRouterParams(currentPageProps + 1)"
            aria-label="Next"
            [class.disabled]="currentPageProps === pagesCount">
             <span aria-hidden="true">&raquo;</span>

@@ -4,27 +4,56 @@
 <ng-template #isLoaded>
    <div class="container">
       <ng-container *ngIf="count > 0; else nothing">
-         <div *ngFor="let post of data; let i = index"
-              class="item">
-            <a [routerLink]="['/post', post.id]"
-               class="title">
-               {{ post.title }}
-            </a>
-            <div class="author">
-               {{ post.author }}
+         <div class="row">
+            <div class="col-md-8 col-lg-9">
+               <div *ngFor="let post of data; let i = index"
+                    class="item">
+                  <a [routerLink]="['/post', post.id]"
+                     class="title">
+                     {{ post.title }}
+                  </a>
+                  <div>
+                     <a class="author"
+                        routerLink="/all"
+                        [queryParams]="selectedTagId
+                           ? {authorId: post.authorId, topicTagId: selectedTagId} 
+                           : {authorId: post.authorId}">
+                        {{ post.author }}
+                     </a>
+                  </div>
+                  <div class="content">
+                     {{ post.content | slice:0:150 }}...
+                  </div>
+                  <div class="tags">
+                     <sonab-tag-list [url]="baseUrl"
+                                     [tags]="post.tags"></sonab-tag-list>
+                  </div>
+                  <hr *ngIf="i + 1 !== limit">
+               </div>
             </div>
-            <div class="content">
-               {{ post.content | slice:0:150 }}...
+            <div class="col-md-4 col-lg-3">
+               <div>
+                  <div class="top-tags">
+                     <sonab-tag-list [url]="baseUrl"
+                                     [tags]="topTags"
+                                     [selectedId]="selectedTagId"
+                                     [params]="{authorId: selectedAuthorId}"></sonab-tag-list>
+                  </div>
+                  <a *ngIf="selectedAuthorId"
+                     class="selected-author"
+                     [routerLink]="[baseUrl]">
+                     {{ data[0].author }}
+                     <img src="assets/svgs/close.svg"
+                          alt="close">
+                  </a>
+               </div>
             </div>
-            <div class="tags">
-               <sonab-tag-list [tags]="post.tags"></sonab-tag-list>
-            </div>
-            <hr *ngIf="i + 1 !== limit">
          </div>
          <sonab-pagination [total]="count"
                            [limit]="limit"
                            [currentPage]="currentPage"
-                           [url]="baseUrl"></sonab-pagination>
+                           [url]="baseUrl"
+                           [params]="{topicTagId: selectedTagId}"></sonab-pagination>
       </ng-container>
       <ng-template #nothing>
          <sonab-no-content></sonab-no-content>
